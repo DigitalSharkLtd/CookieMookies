@@ -109,7 +109,6 @@
 
         // Show the mobile keyboard by focusing the hidden input field
         window.ShowMobileKeyboard = function () {
-          console.log("ShowMobileKeyboard called");
           if (isChatOpen) {
             setTimeout(function() {
               mobileInput.focus(); // Trigger mobile keyboard
@@ -125,7 +124,9 @@
         // Listen to input changes and send the text to Unity
         mobileInput.addEventListener('input', function () {
           var text = mobileInput.value;
-          unityInstance.SendMessage('ChatManager', 'OnMobileInputChanged', text);
+          if (unityInstance) {
+            unityInstance.SendMessage('ChatManager', 'OnMobileInputChanged', text);
+          }
         });
 
         // Clear the mobile input field when required
