@@ -103,7 +103,7 @@
       };
       document.body.appendChild(script);
 
-      // Mobile keyboard handling
+      // Mobile keyboard handling and Photon interaction
       function bindMobileKeyboardInput() {
         var mobileInput = document.getElementById('mobileKeyboardInput');
 
@@ -121,11 +121,12 @@
           mobileInput.blur(); // Close mobile keyboard
         };
 
-        // Listen to input changes and send the text to Unity
+        // Listen to input changes and send the text to Unity and Photon Chat
         mobileInput.addEventListener('input', function () {
           var text = mobileInput.value;
           if (unityInstance) {
-            unityInstance.SendMessage('ChatManager', 'OnMobileInputChanged', text);
+            unityInstance.SendMessage('ChatManager', 'OnMobileInputChanged', text);  // Send input to Unity
+            unityInstance.SendMessage('PhotonManager', 'SendChatMessageToPhoton', text);  // Send input to Photon Chat
           }
         });
 
